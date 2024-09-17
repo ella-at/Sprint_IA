@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Análise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/img/favicon.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .resultado {
+            margin-bottom: 30px;
+        }
+        h3 {
+            color: #34495e;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .previsao {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .previsao h4 {
+            margin: 0 0 10px;
+            padding: 0;
+            font-size: 18px;
+            color: #16a085;
+        }
+        .previsao p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: white;
+            background-color: #16a085;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #149174;
+        }
+        a {
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultado da Análise de Pragas</h1>
+
+
+<div class="resultado">
+    <h3>Resultados da Análise de Pragas:</h3>
+    {% if resultado_pragas and resultado_pragas['predictions'] %}
+        {% for previsao in resultado_pragas['predictions'] %}
+        <div class="previsao">
+            <h4>Detecção: {{ previsao['class'] }}</h4>
+            <p><strong>Confiança:</strong> {{ (previsao['confidence'] * 100) | round(2) }}%</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma praga detectada.</p>
+    {% endif %}
+</div>
+
+
+
+ <div class="imagem-upload">
+    <h3>Imagem Enviada:</h3>
+    <img src="{{ url_for('static', filename='uploads/' + imagem_filename) }}" alt="Imagem Analisada" style="max-width: 100%;">
+</div>
+
+
+<div style="text-align: center;">
+    <a href="/analise_pragas">
+        <button>Fazer outra análise</button>
+    </a>
+</div>
+<br>
+<div style="text-align: center;">
+    <a href="/">
+        <button>Voltar ao menu</button>
+    </a>
+</div>
+</div>
+</body>
+</html>

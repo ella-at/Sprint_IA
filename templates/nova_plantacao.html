@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Plantação</title>
+    <link rel="icon" href="/static/img/favicon.png" type="image/png">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e8efe8;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 2.5em;
+        }
+        form {
+            max-width: 600px;
+            background-color: white;
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            margin-top: 10px;
+            padding: 15px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 15px 30px;
+            background-color: #33aa37;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0a790f;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .button-container a {
+            text-decoration: none;
+        }
+        .button-container button {
+            max-width: 300px;
+        }
+
+        button:hover {
+            background-color: #0a790f;
+            transform: translateY(-3px);
+        }
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: white;
+        }
+        .back-button button {
+            width: 100%;
+            background-color: #365442;
+        }
+        .back-button button:hover {
+            background-color: #022913;
+        }
+
+        .subtit {
+            font-size: 1.0em;
+            color: #e9ffed;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #073d15;
+            color: white;
+        }
+        input, select {
+            margin-top: 10px;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="/nova_plantacao/{{ area[0] }}" method="POST">
+        <h1>Adicionar Plantação na Área: {{ area[1] }}</h1>
+
+        <label for="nome_cultivo">Nome do Cultivo:</label>
+        <input type="text" name="nome_cultivo" required>
+
+        <label for="cultura">Cultura (Sementes):</label>
+        <select name="cultura" required>
+            <option value="Milho">Milho</option>
+            <option value="Soja">Soja</option>
+            <option value="Girassol">Girassol</option>
+            <option value="Trigo">Trigo</option>
+            <option value="Cevada">Cevada</option>
+        </select>
+
+        <label for="data_plantio">Data de Plantio:</label>
+        <input type="date" name="data_plantio" required>
+
+        <label for="data_colheita_prevista">Data de Colheita Prevista:</label>
+        <input type="date" name="data_colheita_prevista">
+
+        <label for="funcionario_id">Funcionário Responsável:</label>
+        <select name="funcionario_id" required>
+            {% for funcionario in funcionarios %}
+            <option value="{{ funcionario[0] }}">{{ funcionario[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="fertilizacao">Fertilização:</label>
+        <select name="fertilizacao" required>
+            <option value="Orgânico">Orgânico</option>
+            <option value="Químico">Químico</option>
+            <option value="Nitrogenado">Nitrogenado</option>
+            <option value="Fósforo">Fósforo</option>
+            <option value="Potássio">Potássio</option>
+        </select>
+
+        <label for="pesticida">Uso de Pesticida:</label>
+        <select name="pesticida" required>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <label for="frequencia_irrigacao">Frequência de Irrigação:</label>
+        <select name="frequencia_irrigacao" required>
+            <option value="Diária">Diária</option>
+            <option value="Semanal">Semanal</option>
+            <option value="Mensal">Mensal</option>
+        </select>
+
+        <button type="submit">Adicionar Plantação</button>
+
+        <div class="back-button">
+            <a href="/areas_plantio">
+                <button type="button">Voltar</button>
+            </a>
+        </div>
+    </form>
+    <footer>
+        <p class="subtit"> CPA - Challenge FIAP 2024</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Nova Área de Plantio</title>
+    <link rel="icon" href="/static/img/favicon.png" type="image/png">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8efe8;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #4CAF50;
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, select {
+            margin-top: 10px;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 15px 30px;
+            background-color: #33aa37;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        button:hover {
+            background-color: #0a790f;
+            transform: translateY(-3px);
+        }
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: white;
+        }
+        .back-button button {
+            width: 100%;
+            background-color: #365442;
+        }
+        .back-button button:hover {
+            background-color: #022913;
+        }
+
+        
+       
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+
+
+    <form action="/nova_area" method="POST">
+        <h1>Cadastrar Nova Área de Plantio</h1>
+        
+        <label for="nome">Nome da Área:</label>
+        <input type="text" name="nome" required>
+
+        
+        <label for="tamanho">Tamanho (em hectares):</label>
+        <input type="number" step="0.01" name="tamanho" required>
+
+        
+        <label for="tipo_solo">Tipo de Solo:</label>
+        <select name="tipo_solo" required>
+            <option value="Seco">Seco</option>
+            <option value="Árido">Árido</option>
+            <option value="Úmido">Úmido</option>
+            <option value="Arenoso">Arenoso</option>
+            <option value="Argiloso">Argiloso</option>
+            <option value="Siltoso">Siltoso</option>
+        </select>
+
+        
+        <label for="irrigada">Área Irrigada:</label>
+        <select name="irrigada" required>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+       
+        <label for="tipo_irrigacao">Tipo de Irrigação:</label>
+        <select name="tipo_irrigacao" required>
+            <option value="Aspersão">Aspersão</option>
+            <option value="Sulcos">Sulcos</option>
+            <option value="Gotejamento">Gotejamento</option>
+        </select>
+
+        
+        <label for="rotacao">Rotação de Culturas:</label>
+        <select name="rotacao" required>
+            <option value="Não">Não</option>
+            <option value="Sim">Sim</option>
+        </select>
+
+        
+        <label for="tecnologia">Tecnologia Utilizada:</label>
+        <select name="tecnologia" required>
+            <option value="Agricultura de Precisão">Agricultura de Precisão</option>
+            <option value="Automatização">Automatização</option>
+            <option value="Monitoramento de Solo">Monitoramento de Solo</option>
+            <option value="Sensoriamento Remoto">Sensoriamento Remoto</option>
+            <option value="Drones">Drones</option>
+            <option value="Geolocalização">Geolocalização</option>
+        </select>
+
+       
+        <label for="pragas">Praga (Opcional):</label>
+        <select name="pragas">
+            <option value="">Nenhuma</option>
+            <option value="Lagarta">Lagarta</option>
+            <option value="Pulgão">Pulgão</option>
+            <option value="Gorgulho">Gorgulho</option>
+            <option value="Broca">Broca</option>
+            <option value="Percevejo">Percevejo</option>
+        </select>
+
+        
+        <button type="submit">Salvar Nova Área</button>
+
+        <div class="back-button">
+            <a href="/">
+                <button type="button">Voltar ao Menu</button>
+            </a>
+        </div>
+
+    </form>
+  
+</body>
+</html>

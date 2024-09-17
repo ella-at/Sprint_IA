@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA - O Sistema</title>
+    <link rel="icon" href="/static/img/favicon.png" type="image/png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e8efe8;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 15px;
+        }
+        .content-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    
+        h2 {
+            font-size: 2.2em;
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+    
+        p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+
+
+        .subtit {
+            font-size: 1.0em;
+            color: #e9ffed;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .button-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+    
+        .button {
+            display: inline-block;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        
+        footer {
+            background-color: #073d15;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Sistema de Gestão Agrícola da CPA!</h1>
+    </header>
+    <br>
+    <br>
+
+    <main>
+        <div class="content-container">
+            <h2>Navegue pelo Sistema</h2>
+            <p>Escolha uma das opções abaixo para acessar as funcionalidades do sistema:</p>
+            <div class="button-grid-container">
+                <a href="/upload" class="button">Upload de Imagens para Doenças</a>
+                <a href="/analise_pragas" class="button">Upload de Imagens para Pragas</a>
+            
+                <a href="/areas_plantio" class="button">Gerenciar Áreas de Plantio</a>
+                <a href="/monitoramento" class="button">Monitoramento por Satélite</a>
+                <a href="/nova_area" class="button">Cadastrar Nova Área</a>
+                <a href="/novo_funcionario" class="button">Cadastrar Funcionário</a>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <p class="subtit"> CPA - Challenge FIAP 2024</p>
+    </footer>
+</body>
+</html>

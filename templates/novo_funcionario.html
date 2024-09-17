@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/img/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Novo Funcionário</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e8efe8;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 2.5em;
+        }
+        form {
+            max-width: 600px;
+            background-color: white;
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            margin-top: 10px;
+            padding: 15px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 15px 30px;
+            background-color: #33aa37;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0a790f;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .button-container a {
+            text-decoration: none;
+        }
+        .button-container button {
+            max-width: 300px;
+        }
+
+        button:hover {
+            background-color: #0a790f;
+            transform: translateY(-3px);
+        }
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: white;
+        }
+        .back-button button {
+            width: 100%;
+            background-color: #365442;
+        }
+        .back-button button:hover {
+            background-color: #022913;
+        }
+
+        .subtit {
+            font-size: 1.0em;
+            color: #e9ffed;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #073d15;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastrar Novo Funcionário</h1>
+
+    <form action="/novo_funcionario" method="POST">
+        
+        <label for="nome">Nome do Funcionário:</label>
+        <input type="text" name="nome" placeholder="Insira o nome completo" required>
+
+        
+        <label for="cargo">Cargo do Funcionário:</label>
+        <input type="text" name="cargo" placeholder="Insira o cargo" required>
+
+        
+        <button type="submit">Cadastrar Funcionário</button>
+   
+        <div class="back-button">
+            <a href="/">
+                <button type="button">Voltar ao Menu</button>
+            </a>
+        </div>
+    </form>
+
+
+    
+    <footer>
+        <p class="subtit"> CPA - Challenge FIAP 2024</p>
+    </footer>
+</body>
+</html>

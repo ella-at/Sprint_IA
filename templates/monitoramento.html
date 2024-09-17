@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento da Área de Plantio</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <link rel="icon" href="/static/img/favicon.png" type="image/png">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            max-width: 1000px;
+            border: 1px solid #ddd;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .form-container h2 {
+            color: #34495e;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+        label {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+        select, button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #33aa37;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s;
+            border: none;
+        }
+        button:hover {
+            background-color: #0a790f;
+            transform: translateY(-3px);
+        }
+        #resultado {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            display: none;
+        }
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-button a {
+            text-decoration: none;
+        }
+        .back-button button {
+            width: 100%;
+            max-width: 300px;
+            background-color: #365442;
+            color: white;
+        }
+        .back-button button:hover {
+            background-color: #022913;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Monitoramento da Área de Plantio</h1>
+
+    <div id="map"></div>
+
+    <div class="form-container">
+        <h2>Opções de Monitoramento</h2>
+
+        <label for="tipo_dado">Selecione o tipo de dado:</label>
+        <select id="tipo_dado">
+            <option value="satellite">Imagem de Satélite</option>
+            <option value="weather">Dados Climáticos</option>
+            <option value="soil_moisture">Umidade do Solo</option>
+        </select>
+
+        <button id="confirmar">Confirmar Área e Buscar Dados</button>
+        <a href="/"> <button class="back-button">Voltar ao Menu</button></a>
+    </div>
+
+    
+    <div id="resultado"></div>
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script>
+        var map = L.map('map').setView([-15.793889, -47.882778], 4); // Brasil
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Ferramenta de desenho no mapa
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems
+            },
+            draw: {
+                polygon: true,
+                polyline: false,
+                rectangle: false,
+                circle: false,
+                marker: false,
+                circlemarker: false
+            }
+        });
+        map.addControl(drawControl);
+
+        
+        map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+
+            if (type === 'polygon') {
+                drawnItems.addLayer(layer);
+            }
+        });
+
+        document.getElementById('confirmar').addEventListener('click', function() {
+            if (drawnItems.getLayers().length > 0) {
+                var layer = drawnItems.getLayers()[0];
+                var coordenadas = layer.getLatLngs()[0];
+
+                var tipo_dado = document.getElementById('tipo_dado').value;
+
+                fetch('/definir_area', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        coordenadas: coordenadas,
+                        tipo_dado: tipo_dado
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var resultadoDiv = document.getElementById('resultado');
+                    resultadoDiv.style.display = 'block';
+
+                    
+                    if (data.error) {
+                        resultadoDiv.innerHTML = `<p style="color:red;">Erro: ${data.error}</p>`;
+                    } else {
+                        
+                        resultadoDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                    alert("Ocorreu um erro ao buscar os dados.");
+                });
+            } else {
+                alert("Por favor, desenhe uma área no mapa.");
+            }
+        });
+    </script>
+
+</body>
+</html>
